@@ -3,6 +3,7 @@ package com.fluttercandies.flutter_qweather;
 import android.content.Context;
 
 import com.google.gson.Gson;
+import com.qweather.sdk.bean.base.Unit;
 import com.qweather.sdk.bean.history.HistoricalAirBean;
 import com.qweather.sdk.bean.history.HistoryWeatherBean;
 import com.qweather.sdk.view.QWeather;
@@ -34,7 +35,7 @@ public class ApiHistory {
                 result.success(gson.fromJson(jsonStr, Map.class));
             }
         };
-        QWeather.getHistoricalWeather(context, location, date, onResultWeatherHistoricalBeanListener);
+        QWeather.getHistoricalWeather(context, location, date, LangUtil.getLang(arguments), Unit.METRIC, onResultWeatherHistoricalBeanListener);
     }
 
     /// 获取空气质量
@@ -58,6 +59,6 @@ public class ApiHistory {
                 result.success(gson.fromJson(jsonStr, Map.class));
             }
         };
-        QWeather.getHistoricalAir(context, location, date, onResultAirHistoricalBeanListener);
+        QWeather.getHistoricalAir(context, location, date, LangUtil.getLang(arguments), Unit.METRIC, onResultAirHistoricalBeanListener);
     }
 }

@@ -40,7 +40,7 @@ public class ApiGeo {
                 result.success(gson.fromJson(jsonStr, Map.class));
             }
         };
-        QWeather.getGeoCityLookup(context, location, Range.valueOf(range.toUpperCase()), number, Lang.ZH_HANS, onResultGeoListener);
+        QWeather.getGeoCityLookup(context, location, Range.valueOf(range.toUpperCase()), number, LangUtil.getLang(arguments), onResultGeoListener);
     }
 
     /// 热门城市查询
@@ -66,7 +66,7 @@ public class ApiGeo {
                 result.success(gson.fromJson(jsonStr, Map.class));
             }
         };
-        QWeather.getGeoTopCity(context, number, Range.valueOf(range.toUpperCase()), Lang.ZH_HANS, onResultGeoListener);
+        QWeather.getGeoTopCity(context, number, Range.valueOf(range.toUpperCase()), LangUtil.getLang(arguments), onResultGeoListener);
     }
 
     /// POI信息搜索
@@ -94,7 +94,7 @@ public class ApiGeo {
                 result.success(gson.fromJson(jsonStr, Map.class));
             }
         };
-        QWeather.getGeoPoiLookup(context, location, city, number, Type.valueOf(type.toUpperCase()), Lang.ZH_HANS, onResultGeoPoiListener);
+        QWeather.getGeoPoiLookup(context, location, city, number, Type.valueOf(type.toUpperCase()), LangUtil.getLang(arguments), onResultGeoPoiListener);
     }
 
     /// POI范围搜索
@@ -122,6 +122,6 @@ public class ApiGeo {
                 result.success(gson.fromJson(jsonStr, Map.class));
             }
         };
-        QWeather.getGeoPoiRange(context, location, radius, number, Type.valueOf(type.toUpperCase()), Lang.ZH_HANS, onResultGeoPoiListener);
+        QWeather.getGeoPoiRange(context, location, radius, number, Type.valueOf(type.toUpperCase()), LangUtil.getLang(arguments), onResultGeoPoiListener);
     }
 }

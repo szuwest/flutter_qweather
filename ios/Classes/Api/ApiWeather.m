@@ -12,7 +12,10 @@
 
 /// 获取当前天气
 + (void) getWeatherNow:(id _Nullable)param result:(FlutterResult)result{
-    QWeatherConfigInstance.location = param;
+//    QWeatherConfigInstance.location = param;
+    NSDictionary *paramDic = param;
+    QWeatherConfigInstance.location = paramDic[@"location"];
+    QWeatherConfigInstance.lang = paramDic[@"lang"];
     [QWeatherConfigInstance weatherWithInquireType:INQUIRE_TYPE_WEATHER_NOW WithSuccess:^(WeatherBaseClass *rep) {
         [DebugPrint print:[@"getWeatherNow WithSuccess: " stringByAppendingString:rep.description]];
         if (![rep.code isEqualToString:@"200"]){
@@ -42,6 +45,7 @@
     NSDictionary *paramDic = param;
     NSNumber *dailyNum = paramDic[@"daily"];
     QWeatherConfigInstance.location = paramDic[@"location"];
+    QWeatherConfigInstance.lang = paramDic[@"lang"];
     INQUIRE_TYPE inquireType = INQUIRE_TYPE_WEATHER_3D;
     if ([dailyNum isEqualToNumber: @7]){
         inquireType = INQUIRE_TYPE_WEATHER_7D;
@@ -87,6 +91,7 @@
     NSDictionary *paramDic = param;
     NSNumber *hourlyNum = paramDic[@"hourly"];
     QWeatherConfigInstance.location = paramDic[@"location"];
+    QWeatherConfigInstance.lang = paramDic[@"lang"];
     INQUIRE_TYPE inquireType = INQUIRE_TYPE_WEATHER_24H;
     if ([hourlyNum isEqualToNumber: @72]){
         inquireType = INQUIRE_TYPE_WEATHER_72H;
@@ -123,7 +128,10 @@
 }
 /// 获取中国地区未来2小时内每5分钟降水
 + (void) getWeatherMinuteLy:(id _Nullable)param result:(FlutterResult)result{
-    QWeatherConfigInstance.location = param;
+//    QWeatherConfigInstance.location = param;
+    NSDictionary *paramDic = param;
+    QWeatherConfigInstance.location = paramDic[@"location"];
+    QWeatherConfigInstance.lang = paramDic[@"lang"];
     [QWeatherConfigInstance weatherWithInquireType:INQUIRE_TYPE_WEATHER_MINUTELY WithSuccess:^(WeatherMinutelyBaseClass *rep) {
             [DebugPrint print:[@"getWeatherMinuteLy WithSuccess: " stringByAppendingString:rep.description]];
         if (![rep.code isEqualToString:@"200"]){

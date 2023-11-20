@@ -110,9 +110,9 @@ public class ApiIndices {
             }
         };
         if (name.equals("getIndices1Day")) {
-            QWeather.getIndices1D(context, location, Lang.ZH_HANS, indicesTypesTmp, onResultIndicesListener);
+            QWeather.getIndices1D(context, location, LangUtil.getLang(arguments), indicesTypesTmp, onResultIndicesListener);
         } else {
-            QWeather.getIndices3D(context, location, Lang.ZH_HANS, indicesTypesTmp, onResultIndicesListener);
+            QWeather.getIndices3D(context, location, LangUtil.getLang(arguments), indicesTypesTmp, onResultIndicesListener);
         }
     }
 }

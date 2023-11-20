@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.qweather.sdk.bean.MinutelyBean;
+import com.qweather.sdk.bean.base.Unit;
 import com.qweather.sdk.bean.weather.WeatherDailyBean;
 import com.qweather.sdk.bean.weather.WeatherHourlyBean;
 import com.qweather.sdk.bean.weather.WeatherNowBean;
@@ -16,7 +17,10 @@ import io.flutter.plugin.common.MethodChannel;
 public class ApiWeather {
     /// 获取实时天气
     protected static void getWeatherNow(Context context, Object arguments, final MethodChannel.Result result) {
-        String location = (String) arguments;
+//        String location = (String) arguments;
+        @SuppressWarnings("unchecked")
+        HashMap<String, Object> param = (HashMap<String, Object>) arguments;
+        String location = (String) param.get("location");
         QWeather.OnResultWeatherNowListener onResultWeatherNowListener = new QWeather.OnResultWeatherNowListener() {
             @Override
             public void onError(Throwable throwable) {
@@ -32,7 +36,7 @@ public class ApiWeather {
                 result.success(gson.fromJson(jsonStr, Map.class));
             }
         };
-        QWeather.getWeatherNow(context, location, onResultWeatherNowListener);
+        QWeather.getWeatherNow(context, location, LangUtil.getLang(arguments), Unit.METRIC, onResultWeatherNowListener);
     }
 
     /// 获取逐天预报
@@ -58,13 +62,13 @@ public class ApiWeather {
             }
         };
         if (dailyForecast == 3) {
-            QWeather.getWeather3D(context, location, onResultWeatherDailyListener);
+            QWeather.getWeather3D(context, location, LangUtil.getLang(arguments), Unit.METRIC, onResultWeatherDailyListener);
         } else if (dailyForecast == 7) {
-            QWeather.getWeather7D(context, location, onResultWeatherDailyListener);
+            QWeather.getWeather7D(context, location, LangUtil.getLang(arguments), Unit.METRIC, onResultWeatherDailyListener);
         } else if (dailyForecast == 10) {
-            QWeather.getWeather10D(context, location, onResultWeatherDailyListener);
+            QWeather.getWeather10D(context, location, LangUtil.getLang(arguments), Unit.METRIC, onResultWeatherDailyListener);
         } else if (dailyForecast == 15) {
-            QWeather.getWeather15D(context, location, onResultWeatherDailyListener);
+            QWeather.getWeather15D(context, location, LangUtil.getLang(arguments), Unit.METRIC, onResultWeatherDailyListener);
         }
     }
 
@@ -91,11 +95,11 @@ public class ApiWeather {
             }
         };
         if (hourlyForecast == 24) {
-            QWeather.getWeather24Hourly(context, location, onResultWeatherHourlyListener);
+            QWeather.getWeather24Hourly(context, location, LangUtil.getLang(arguments), Unit.METRIC, onResultWeatherHourlyListener);
         } else if (hourlyForecast == 72) {
-            QWeather.getWeather72Hourly(context, location, onResultWeatherHourlyListener);
+            QWeather.getWeather72Hourly(context, location, LangUtil.getLang(arguments), Unit.METRIC, onResultWeatherHourlyListener);
         } else if (hourlyForecast == 168) {
-            QWeather.getWeather168Hourly(context, location, onResultWeatherHourlyListener);
+            QWeather.getWeather168Hourly(context, location, LangUtil.getLang(arguments), Unit.METRIC, onResultWeatherHourlyListener);
         }
     }
 
@@ -117,6 +121,6 @@ public class ApiWeather {
                 result.success(gson.fromJson(jsonStr, Map.class));
             }
         };
-        QWeather.getMinuteLy(context, location, onResultMinutelyListener);
+        QWeather.getMinuteLy(context, location, LangUtil.getLang(arguments), onResultMinutelyListener);
     }
 }

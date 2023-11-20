@@ -42,7 +42,7 @@ class _MyAppState extends State<MyApp> {
     await FlutterQweather.instance.init(config);
     // await FlutterQweather.instance.setDebug();
     await queryWeatherNow();
-    FlutterQweather.instance.getAirNow(_location);
+    FlutterQweather.instance.getAirNow(_location, lang: 'en');
     // FlutterQweather.instance.geoPoiRangeLookup('116.40000,39.88999', PoiType.scenic);
     // FlutterQweather.instance.getWeatherMinuteLy(_location);
     // FlutterQweather.instance.geoPoiRangeLookup('116.40000,39.88999', PoiType.scenic);
@@ -62,7 +62,7 @@ class _MyAppState extends State<MyApp> {
   Future<void> queryWeatherNow() async {
     setState(() => _weatherNowResp = null);
     // await Qweather.instance.getWeatherNow("101010100");
-    _weatherNowResp = await FlutterQweather.instance.getWeatherNow(_location);
+    _weatherNowResp = await FlutterQweather.instance.getWeatherNow(_location, lang: 'en');
     setState(() {});
   }
 

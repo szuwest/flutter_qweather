@@ -9,6 +9,7 @@ import com.qweather.sdk.bean.base.Lang;
 import com.qweather.sdk.bean.base.Range;
 import com.qweather.sdk.view.QWeather;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import io.flutter.plugin.common.MethodChannel;
@@ -16,7 +17,10 @@ import io.flutter.plugin.common.MethodChannel;
 public class ApiWarning {
     /// 获取灾害预警
     protected static void getWarning(Context context, Object arguments, final MethodChannel.Result result) {
-        String location = (String) arguments;
+//        String location = (String) arguments;
+        @SuppressWarnings("unchecked")
+        HashMap<String, Object> param = (HashMap<String, Object>) arguments;
+        String location = (String) param.get("location");
         QWeather.OnResultWarningListener onResultWarningListener = new QWeather.OnResultWarningListener() {
             @Override
             public void onError(Throwable throwable) {
@@ -32,7 +36,7 @@ public class ApiWarning {
                 result.success(gson.fromJson(jsonStr, Map.class));
             }
         };
-        QWeather.getWarning(context, location, onResultWarningListener);
+        QWeather.getWarning(context, location, LangUtil.getLang(arguments), onResultWarningListener);
     }
 
     /// 获取灾害预警列表

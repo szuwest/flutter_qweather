@@ -22,6 +22,7 @@
     NSDictionary *paramDic = param;
     QWeatherConfigInstance.location = paramDic[@"location"];
     NSArray<NSString*> *indicesTypes = paramDic[@"indicesTypes"];
+    QWeatherConfigInstance.lang = paramDic[@"lang"];
     NSMutableArray<NSNumber*> *indicesTypesTmp = [NSMutableArray new];
     for (int i = 0; i < indicesTypes.count; i++){
         NSString *str = [indicesTypes objectAtIndex:i];

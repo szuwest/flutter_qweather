@@ -35,7 +35,7 @@ public class ApiAstronomy {
                 result.success(gson.fromJson(jsonStr, Map.class));
             }
         };
-        QWeather.getSun(context, location, date, onResultSunListener);
+        QWeather.getSun(context, location,  LangUtil.getLang(arguments), date, onResultSunListener);
     }
 
     /// 获取月升月落月相
@@ -59,7 +59,7 @@ public class ApiAstronomy {
                 result.success(gson.fromJson(jsonStr, Map.class));
             }
         };
-        QWeather.getMoon(context, location, date, onResultMoonListener);
+        QWeather.getMoon(context, location, LangUtil.getLang(arguments), date, onResultMoonListener);
     }
 
     /// 获取太阳高度角

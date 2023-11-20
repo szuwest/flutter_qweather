@@ -8,6 +8,7 @@ import com.qweather.sdk.bean.air.AirNowBean;
 import com.qweather.sdk.bean.base.Lang;
 import com.qweather.sdk.view.QWeather;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import io.flutter.plugin.common.MethodChannel;
@@ -15,7 +16,11 @@ import io.flutter.plugin.common.MethodChannel;
 public class ApiAir {
     /// 获取实时空气质量
     protected static void getAirNow(Context context, Object arguments, final MethodChannel.Result result) {
-        String location = (String) arguments;
+//        String location = (String) arguments;
+        @SuppressWarnings("unchecked")
+        HashMap<String, Object> param = (HashMap<String, Object>) arguments;
+        String location = (String) param.get("location");
+
         QWeather.OnResultAirNowListener onResultAirNowListener = new QWeather.OnResultAirNowListener() {
             @Override
             public void onError(Throwable throwable) {
@@ -31,12 +36,15 @@ public class ApiAir {
                 result.success(gson.fromJson(jsonStr, Map.class));
             }
         };
-        QWeather.getAirNow(context, location, Lang.ZH_HANS, onResultAirNowListener);
+        QWeather.getAirNow(context, location, LangUtil.getLang(arguments), onResultAirNowListener);
     }
 
     /// 获取5天空气质量预报
     protected static void getAir5Day(Context context, Object arguments, final MethodChannel.Result result) {
-        String location = (String) arguments;
+//        String location = (String) arguments;
+        @SuppressWarnings("unchecked")
+        HashMap<String, Object> param = (HashMap<String, Object>) arguments;
+        String location = (String) param.get("location");
         QWeather.OnResultAirDailyListener onResultAirDailyListener = new QWeather.OnResultAirDailyListener() {
             @Override
             public void onError(Throwable throwable) {
@@ -52,6 +60,6 @@ public class ApiAir {
                 result.success(gson.fromJson(jsonStr, Map.class));
             }
         };
-        QWeather.getAir5D(context, location, Lang.ZH_HANS, onResultAirDailyListener);
+        QWeather.getAir5D(context, location, LangUtil.getLang(arguments), onResultAirDailyListener);
     }
 }

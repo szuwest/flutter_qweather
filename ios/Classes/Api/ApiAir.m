@@ -11,7 +11,10 @@
 
 /// 获取实时空气质量
 + (void) getAirNow:(id _Nullable)param result:(FlutterResult)result{
-    QWeatherConfigInstance.location = param;
+//    QWeatherConfigInstance.location = param;
+    NSDictionary *paramDic = param;
+    QWeatherConfigInstance.location = paramDic[@"location"];
+    QWeatherConfigInstance.lang = paramDic[@"lang"];
     [QWeatherConfigInstance weatherWithInquireType:INQUIRE_TYPE_WEATHER_AIR_NOW WithSuccess:^(AirBaseClass *rep) {
         [DebugPrint print:[@"getAirNow WithSuccess: " stringByAppendingString:rep.description]];
         if (![rep.code isEqualToString:@"200"]){
@@ -47,7 +50,10 @@
 
 /// 空气质量5天预报
 + (void) getAir5Day:(id _Nullable)param result:(FlutterResult)result{
-    QWeatherConfigInstance.location = param;
+//    QWeatherConfigInstance.location = param;
+    NSDictionary *paramDic = param;
+    QWeatherConfigInstance.location = paramDic[@"location"];
+    QWeatherConfigInstance.lang = paramDic[@"lang"];
     [QWeatherConfigInstance weatherWithInquireType:INQUIRE_TYPE_WEATHER_AIR_5D WithSuccess:^(AirBaseClass *rep) {
         [DebugPrint print:[@"getAir5Day WithSuccess: " stringByAppendingString:rep.description]];
         if (![rep.code isEqualToString:@"200"]){
