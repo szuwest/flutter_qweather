@@ -7,6 +7,8 @@
 
 #import "ApiIndices.h"
 #import "../DebugPrint/DebugPrint.h"
+#import "ApiWeather.h"
+
 @implementation ApiIndices
 /// 获取1天生活指数
 + (void) getIndices1Day:(id)param result:(FlutterResult)result{
@@ -22,7 +24,7 @@
     NSDictionary *paramDic = param;
     QWeatherConfigInstance.location = paramDic[@"location"];
     NSArray<NSString*> *indicesTypes = paramDic[@"indicesTypes"];
-    QWeatherConfigInstance.lang = paramDic[@"lang"];
+    QWeatherConfigInstance.lang = [ApiWeather getLang:paramDic];
     NSMutableArray<NSNumber*> *indicesTypesTmp = [NSMutableArray new];
     for (int i = 0; i < indicesTypes.count; i++){
         NSString *str = [indicesTypes objectAtIndex:i];

@@ -19,4 +19,6 @@
 + (void) getWeatherHourly:(id)param result:(FlutterResult)result;
 /// 获取中国地区未来2小时内每5分钟降水
 + (void) getWeatherMinuteLy:(id)param result:(FlutterResult)result;
+/// get Lang
++ (NSString *)getLang:(NSDictionary *) paramDic;
 @end

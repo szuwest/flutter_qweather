@@ -15,7 +15,7 @@
 //    QWeatherConfigInstance.location = param;
     NSDictionary *paramDic = param;
     QWeatherConfigInstance.location = paramDic[@"location"];
-    QWeatherConfigInstance.lang = paramDic[@"lang"];
+    QWeatherConfigInstance.lang = [ApiWeather getLang:paramDic];
     [QWeatherConfigInstance weatherWithInquireType:INQUIRE_TYPE_WEATHER_NOW WithSuccess:^(WeatherBaseClass *rep) {
         [DebugPrint print:[@"getWeatherNow WithSuccess: " stringByAppendingString:rep.description]];
         if (![rep.code isEqualToString:@"200"]){
@@ -45,7 +45,7 @@
     NSDictionary *paramDic = param;
     NSNumber *dailyNum = paramDic[@"daily"];
     QWeatherConfigInstance.location = paramDic[@"location"];
-    QWeatherConfigInstance.lang = paramDic[@"lang"];
+    QWeatherConfigInstance.lang = [ApiWeather getLang:paramDic];
     INQUIRE_TYPE inquireType = INQUIRE_TYPE_WEATHER_3D;
     if ([dailyNum isEqualToNumber: @7]){
         inquireType = INQUIRE_TYPE_WEATHER_7D;
@@ -91,7 +91,7 @@
     NSDictionary *paramDic = param;
     NSNumber *hourlyNum = paramDic[@"hourly"];
     QWeatherConfigInstance.location = paramDic[@"location"];
-    QWeatherConfigInstance.lang = paramDic[@"lang"];
+    QWeatherConfigInstance.lang = [ApiWeather getLang:paramDic];
     INQUIRE_TYPE inquireType = INQUIRE_TYPE_WEATHER_24H;
     if ([hourlyNum isEqualToNumber: @72]){
         inquireType = INQUIRE_TYPE_WEATHER_72H;
@@ -131,7 +131,7 @@
 //    QWeatherConfigInstance.location = param;
     NSDictionary *paramDic = param;
     QWeatherConfigInstance.location = paramDic[@"location"];
-    QWeatherConfigInstance.lang = paramDic[@"lang"];
+    QWeatherConfigInstance.lang = [ApiWeather getLang:paramDic];
     [QWeatherConfigInstance weatherWithInquireType:INQUIRE_TYPE_WEATHER_MINUTELY WithSuccess:^(WeatherMinutelyBaseClass *rep) {
             [DebugPrint print:[@"getWeatherMinuteLy WithSuccess: " stringByAppendingString:rep.description]];
         if (![rep.code isEqualToString:@"200"]){
@@ -158,4 +158,18 @@
     }];
 }
 
++ (NSString *)getLang:(NSDictionary *) paramDic {
+    NSString *lang = paramDic[@"lang"];
+    if (lang == nil || lang.length == 0) {
+        return @"zh";
+    }
+    lang = [lang lowercaseString];
+    if ([lang isEqual: @"zh_hans"]) {
+        return @"zh-hans";
+    }
+    if ( [lang isEqual: @"zh_hant"]) {
+        return @"zh-hant";
+    }
+    return lang;
+}
 @end

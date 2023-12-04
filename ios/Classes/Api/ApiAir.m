@@ -7,6 +7,8 @@
 
 #import "ApiAir.h"
 #import "../DebugPrint/DebugPrint.h"
+#import "ApiWeather.h"
+
 @implementation ApiAir
 
 /// 获取实时空气质量
@@ -14,7 +16,7 @@
 //    QWeatherConfigInstance.location = param;
     NSDictionary *paramDic = param;
     QWeatherConfigInstance.location = paramDic[@"location"];
-    QWeatherConfigInstance.lang = paramDic[@"lang"];
+    QWeatherConfigInstance.lang = [ApiWeather getLang:paramDic];
     [QWeatherConfigInstance weatherWithInquireType:INQUIRE_TYPE_WEATHER_AIR_NOW WithSuccess:^(AirBaseClass *rep) {
         [DebugPrint print:[@"getAirNow WithSuccess: " stringByAppendingString:rep.description]];
         if (![rep.code isEqualToString:@"200"]){
@@ -53,7 +55,7 @@
 //    QWeatherConfigInstance.location = param;
     NSDictionary *paramDic = param;
     QWeatherConfigInstance.location = paramDic[@"location"];
-    QWeatherConfigInstance.lang = paramDic[@"lang"];
+    QWeatherConfigInstance.lang = [ApiWeather getLang:paramDic];
     [QWeatherConfigInstance weatherWithInquireType:INQUIRE_TYPE_WEATHER_AIR_5D WithSuccess:^(AirBaseClass *rep) {
         [DebugPrint print:[@"getAir5Day WithSuccess: " stringByAppendingString:rep.description]];
         if (![rep.code isEqualToString:@"200"]){
